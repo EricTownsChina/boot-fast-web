@@ -31,4 +31,4 @@ build/
 .vscode/
 
 ### fast-boot ###
-application.yml
+**/application.yml
