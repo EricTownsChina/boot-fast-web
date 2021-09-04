@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.eric.bc.dao.CinemaDao">
+
+    <select id="getCinemaById" parameterType="Integer" resultType="priv.eric.bc.entity.Cinema">
+        SELECT * FROM cinema WHERE seat_id = #{id}
+    </select>
+
+    <update id="openCinema" parameterType="Integer">
+        UPDATE cinema
+        <set>
+            `open` = 1
+        </set>
+        WHERE seat_id = #{seatId}
+    </update>
+
+    <update id="updateCinema" parameterType="priv.eric.bc.entity.Cinema">
+        UPDATE cinema
+        <set>
+            <if test="free != null">
+                free = #{free},
+            </if>
+            <if test="desc != null and desc != ''">
+                `desc` = #{desc}
+            </if>
+        </set>
+        WHERE seat_id = #{seatId}
+    </update>
+
+
+
+
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.eric.bc.dao.UserDao">
+
+    <select id="selectUsers" resultType="priv.eric.bc.entity.User">
+        SELECT *
+        FROM user
+        ORDER BY create_time DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="selectUserById" resultType="priv.eric.bc.entity.User">
+        SELECT * FROM user WHERE user_uid = #{uid}
+    </select>
+
+    <select id="countUsers" resultType="Integer">
+        SELECT count(id)
+        FROM user
+        ORDER BY create_time DESC
+    </select>
+
+    <update id="updateUser" parameterType="priv.eric.bc.entity.User">
+        UPDATE user
+        <set>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="provinceId != null">
+                province_id = #{provinceId},
+            </if>
+            <if test="cityId != null">
+                city_id = #{cityId},
+            </if>
+        </set>
+        WHERE user_uid = #{userUid}
+    </update>
+
+    <insert id="insertUser" parameterType="priv.eric.bc.entity.User">
+        INSERT INTO user (
+            user_uid,
+            user_id,
+            user_name,
+            province_id,
+            city_id,
+            create_time
+        )
+        VALUES (
+            #{userUid},
+            #{userId},
+            #{userName},
+            #{provinceId},
+            #{cityId},
+            now()
+        )
+    </insert>
+
+
+</mapper>
